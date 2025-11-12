@@ -1,4 +1,7 @@
 
+
+using Microsoft.EntityFrameworkCore;
+
 namespace DS.Api
 {
     public class Program
@@ -13,6 +16,11 @@ namespace DS.Api
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            //Add DbContext
+            builder.Services.AddDbContext<AppDbContext>(options=>
+                options.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=devsphere;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True;")
+            );
 
             var app = builder.Build();
 

@@ -3,6 +3,6 @@
     public class Follow
     {
         public int FollowerId { get; set; }
-        public int FollowerName { get; set; }
+        public int FollowingId { get; set; }
     }
 }
