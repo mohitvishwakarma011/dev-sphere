@@ -22,6 +22,10 @@ namespace DS.Api
                 options.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=devsphere;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True;")
             );
 
+            builder.Services.ConfigureRepositories();
+            builder.Services.ConfigureManagers();
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
