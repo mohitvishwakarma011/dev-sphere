@@ -10,11 +10,14 @@
 
             builder.HasOne<Post>()
                 .WithMany(p=> p.Likes)
-                .HasForeignKey(l=>l.PostId);
+                .HasForeignKey(l=>l.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne<User>()
                .WithMany()
-               .HasForeignKey(l => l.UserId);
+               .HasForeignKey(l => l.UserId)
+               .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
+

@@ -19,7 +19,11 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="../DS.Core/DS.Core.csproj"/>
+		<ProjectReference Include="../DS.Core/DS.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Repositories\" />
 	</ItemGroup>
 
 </Project>

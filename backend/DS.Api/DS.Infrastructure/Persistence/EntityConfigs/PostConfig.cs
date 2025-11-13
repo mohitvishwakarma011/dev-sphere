@@ -14,12 +14,14 @@
 
             builder.HasOne(p => p.User)
                 .WithMany(u => u.Posts)
-                .HasForeignKey(p => p.AuthorId);
+                .HasForeignKey(p => p.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(p=>p.Category)
                 .WithMany()
-                .HasForeignKey(p=>p.CategoryId);
+                .HasForeignKey(p=>p.CategoryId)
+                .OnDelete(DeleteBehavior.NoAction);
 
         }
     }
-}
+}    

@@ -9,11 +9,13 @@
 
             builder.HasOne(pt => pt.Post)
                 .WithMany(p => p.PostTags)
-                .HasForeignKey(pt => pt.PostId);
+                .HasForeignKey(pt => pt.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(pt => pt.Tag)
                 .WithMany(t => t.PostTags)
-                .HasForeignKey(pt => pt.TagId);
+                .HasForeignKey(pt => pt.TagId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -13,11 +13,13 @@
 
             builder.HasOne(e => e.User)
                 .WithMany()
-                .HasForeignKey(e => e.UserId);
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(e => e.Post)
                  .WithMany(p=>p.Comments)
-                 .HasForeignKey(e => e.PostId);
+                 .HasForeignKey(e => e.PostId)
+                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
