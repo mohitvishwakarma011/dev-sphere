@@ -14,16 +14,8 @@ namespace DS.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody]UserModel userModel)
          {
-            try
-            {
                 await userManager.AddUser(userModel);
                 return Ok();
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace DS.Api
+﻿using DS.Api.Middlewares;
+
+namespace DS.Api
 {
     public static class Extensions
     {
@@ -16,6 +18,11 @@
         public static void ConfigureManagers(this IServiceCollection services)
         {
             services.AddScoped<IUserManager, UserManager>();
+        }
+
+        public static void ConfigureMiddlewares(this IApplicationBuilder builder)
+        {
+            builder.UseMiddleware<ExceptionHandling>();
         }
     }
 }

@@ -27,6 +27,7 @@ namespace DS.Api
 
 
             var app = builder.Build();
+            app.ConfigureMiddlewares(); //Configure Middlewares
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
