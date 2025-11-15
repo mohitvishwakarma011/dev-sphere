@@ -9,3 +9,4 @@ global using DS.Core.Entities;
 global using DS.Core.Models;
 global using DS.Core.Abstraction.Repositories;
 global using DS.Core.Abstraction;
+global using DS.Core.Utilities;

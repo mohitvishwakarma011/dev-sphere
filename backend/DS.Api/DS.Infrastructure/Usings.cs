@@ -8,3 +8,4 @@ global using System.Text;
 global using System.Threading.Tasks;
 global using DS.Core.Abstraction.Repositories;
 global using DS.Infrastructure.Persistence;
+global using DS.Core.Utilities;

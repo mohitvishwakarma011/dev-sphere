@@ -1,4 +1,5 @@
 ﻿using DS.Api.Middlewares;
+using DS.Api.Validators.User;
 
 namespace DS.Api
 {
@@ -23,6 +24,11 @@ namespace DS.Api
         public static void ConfigureMiddlewares(this IApplicationBuilder builder)
         {
             builder.UseMiddleware<ExceptionHandling>();
+        }
+
+        public static void ConfigureValidators(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<UserModel>, UserUpsertValidator>();
         }
     }
 }

@@ -5,3 +5,4 @@ global using System.Text;
 global using System.Threading.Tasks;
 global using DS.Core.Entities;
 global using DS.Core.Models;
+global using DS.Core.Dto.User;

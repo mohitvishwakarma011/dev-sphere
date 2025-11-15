@@ -1,6 +1,7 @@
 
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DS.Api
 {
@@ -14,6 +15,7 @@ namespace DS.Api
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
             builder.Services.AddEndpointsApiExplorer(); 
             builder.Services.AddSwaggerGen();
 
@@ -24,10 +26,10 @@ namespace DS.Api
 
             builder.Services.ConfigureRepositories();
             builder.Services.ConfigureManagers();
-
+            builder.Services.ConfigureValidators();
 
             var app = builder.Build();
-            app.ConfigureMiddlewares(); //Configure Middlewares
+            //app.ConfigureMiddlewares(); //Configure Middlewares
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
