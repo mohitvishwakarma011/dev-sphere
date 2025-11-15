@@ -22,6 +22,10 @@
                 .HasForeignKey(p=>p.CategoryId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasOne<Subcategory>()
+                .WithMany()
+                .HasForeignKey(x => x.SubCategoryId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }    

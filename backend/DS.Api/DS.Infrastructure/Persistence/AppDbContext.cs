@@ -12,7 +12,9 @@ namespace DS.Infrastructure.Persistence
 
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Subcategory> SubCategories { get; set; }
         public DbSet<Comment> Comments { get; set; }
+
         public DbSet<Follow> Follows { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<Post> Posts { get; set; }
@@ -33,6 +35,8 @@ namespace DS.Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new ProfileConfig());
             modelBuilder.ApplyConfiguration(new TagConfig());
             modelBuilder.ApplyConfiguration(new UserConfig());
+            modelBuilder.ApplyConfiguration(new SubCategoryConfig());
+
         }
     }
 }

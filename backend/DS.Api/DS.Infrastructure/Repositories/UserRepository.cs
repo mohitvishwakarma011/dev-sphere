@@ -16,12 +16,13 @@ namespace DS.Infrastructure.Repositories
 
         public async Task<IList<UserDto>> GetListAsync()
         {
-            return await context.Users.AsNoTracking().Select(x => new UserDto
+            return await context.Users.AsNoTracking().Where(x=>x.Status!=Constants.RecordStatus.Deleted).Select(x => new UserDto
             {
                 Id = x.Id,
                 UserEmail = x.UserName,
-                UserName = x.UserName,
-                Role = x.Role
+                UserName = x.UserEmail,
+                Role = x.Role,
+                Status = x.Status
             }).ToListAsync(); 
         }
 

@@ -14,11 +14,14 @@ namespace DS.Api
         {
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<IUnitOfWork,UnitOfWork>();
+            services.AddScoped<ISeedRepository,SeedRepository>();
         }
 
         public static void ConfigureManagers(this IServiceCollection services)
         {
             services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<ISeedManager, SeedManager>();
+
         }
 
         public static void ConfigureMiddlewares(this IApplicationBuilder builder)

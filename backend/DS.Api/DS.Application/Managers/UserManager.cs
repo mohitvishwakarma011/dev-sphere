@@ -1,6 +1,4 @@
-﻿
-
-using DS.Core.Dto;
+﻿using DS.Core.Dto;
 using DS.Core.Dto.User;
 using System.Data;
 
@@ -43,6 +41,7 @@ namespace DS.Application.Managers
                 user.UserName = userModel.UserName;
                 user.UserEmail = userModel.UserEmail;
                 user.Role = userModel.Role;
+                user.Status = userModel.Status;
 
                 userRepository.Update(user);
                 await unitOfWork.SaveChangesAsync();

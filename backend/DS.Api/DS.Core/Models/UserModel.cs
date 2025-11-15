@@ -1,4 +1,6 @@
-﻿namespace DS.Core.Models
+﻿using DS.Core.Utilities;
+
+namespace DS.Core.Models
 {
     public class UserModel
     {
@@ -7,5 +9,6 @@
         public string UserEmail { get; set; } = String.Empty;
         public string Password { get; set; } = String.Empty;
         public string Role { get; set; } = String.Empty;
+        public Constants.RecordStatus Status { get; set; }
     }
 }
