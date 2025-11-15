@@ -1,39 +1,24 @@
 ﻿namespace DS.Infrastructure.Repositories
 {
-    public class SeedRepository(AppDbContext context):ISeedRepository
+    public class SeedRepository(AppDbContext context) : ISeedRepository
     {
         public async Task SeedCategories()
         {
-            var categories = new List<Category>
+            if (await context.Categories.AnyAsync())
             {
-                new Category
-                {
-                    Name = "Technology",
-                    Description = "General topics related to modern technologies, innovations, tools, and trends shaping the digital world.",
-                    Status = Constants.RecordStatus.Active
-                },
-                
-                new Category
-                {
-                    Name = "Programming Languages",
-                    Description = "General content about various programming languages and their ecosystems.",
-                    Status = Constants.RecordStatus.Active
-                },
-               
-                new Category
-                {
-                    Name = "Soft Skills",
-                    Description = "Content focused on communication, leadership, and non-technical skills essential for career success.",
-                    Status = Constants.RecordStatus.Active
-                }
+                return;
+            }
 
-            };
-
-            await context.Categories.AddRangeAsync(categories);
+            await context.Categories.AddRangeAsync(DefaultSeedData.Categories);
         }
 
         public async Task SeedSubCategories()
         {
+            if (await context.SubCategories.AnyAsync())
+            {
+                return;
+            }
+
             var categories = await context.Categories.AsNoTracking().ToListAsync();
 
             int technologyId = categories.Single(x => x.Name == "Technology").Id;
@@ -166,4 +151,31 @@
 
         }
     }
+}
+
+public static class DefaultSeedData
+{
+    public static List<Category> Categories => new()
+    {
+        new Category
+         {
+                    Name = "Technology",
+                    Description = "General topics related to modern technologies, innovations, tools, and trends shaping the digital world.",
+                    Status = Constants.RecordStatus.Active
+        },
+
+                new Category
+                {
+                    Name = "Programming Languages",
+                    Description = "General content about various programming languages and their ecosystems.",
+                    Status = Constants.RecordStatus.Active
+                },
+
+                new Category
+                {
+                    Name = "Soft Skills",
+                    Description = "Content focused on communication, leadership, and non-technical skills essential for career success.",
+                    Status = Constants.RecordStatus.Active
+                }
+    };
 }

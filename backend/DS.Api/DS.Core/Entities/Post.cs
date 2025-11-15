@@ -1,4 +1,4 @@
-﻿namespace DS.Core.Entities
+﻿namespace DS.Core.Entities 
 {
     public class Post
     {
@@ -8,7 +8,7 @@
         public DateTime CreatedAt { get;set ; }
         public int AuthorId { get; set; } //this is the userId FK
         public int CategoryId { get; set; }// FK for Category
-        public int SubCategoryId { get ; set; }//FK for subcategory
+        public int SubCategoryId { get ; set; }//FK for subcategory 
         public int ViewsCount { get; set; }
         public User User { get; set; } = null!;
         public Category Category { get; set; } = null!;
