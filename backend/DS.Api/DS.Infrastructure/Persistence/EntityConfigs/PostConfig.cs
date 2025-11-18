@@ -22,7 +22,7 @@
                 .HasForeignKey(p=>p.CategoryId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne<Subcategory>()
+            builder.HasOne(x=>x.SubCategory)
                 .WithMany()
                 .HasForeignKey(x => x.SubCategoryId)
                 .OnDelete(DeleteBehavior.NoAction);

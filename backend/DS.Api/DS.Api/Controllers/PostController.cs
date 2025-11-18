@@ -50,9 +50,22 @@ namespace DS.Api.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<IActionResult> GetList([FromBody]PostFilterModel filterModel)
+        public async Task<IActionResult> GetList([FromQuery] PostFilterModel filterModel)
         {
-            await 
+            return Ok(await postManager.GetListAsync(filterModel));
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetByIdAsync([FromRoute]int id)
+        {
+            try
+            {
+                return Ok(await postManager.GetByIdAsync(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
