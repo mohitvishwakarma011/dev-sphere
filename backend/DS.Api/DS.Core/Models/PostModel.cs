@@ -5,7 +5,8 @@
         public int Id { get; set; }
         public string Title { get; set; } = String.Empty;
         public string Content { get; set; } = String.Empty;
-        public DateTime CreatedAt { get; set; }
-
+        public int CategoryId { get ; set; }
+        public int SubCategoryId { get; set; }
+        public int AuthorId { get ; set; }
     }
 }

@@ -9,11 +9,12 @@ namespace DS.Api.Controllers
     {
         public IUserManager userManager;
         public IValidator<UserModel> userValidator;
-
-        public UserController(IUserManager userManager, IValidator<UserModel> userValidator)
+        public IHttpContextAccessor accessor;
+        public UserController(IUserManager userManager, IValidator<UserModel> userValidator,IHttpContextAccessor accessor)
         {
             this.userManager = userManager;
             this.userValidator = userValidator;
+            this.accessor = accessor;
         }
 
         [HttpPost]
@@ -61,9 +62,11 @@ namespace DS.Api.Controllers
         {
             try
             {
+                //return Ok( HttpContext.Request );
                 return Ok(await userManager.GetByIdAsync(id));
 
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 return BadRequest(ex.Message);
             }

@@ -1,5 +1,3 @@
-
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,11 +16,9 @@ namespace DS.Api
 
             builder.Services.AddEndpointsApiExplorer(); 
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddHttpContextAccessor();
             //Add DbContext
-            builder.Services.AddDbContext<AppDbContext>(options=>
-                options.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=devsphere;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True;")
-            );
+            builder.Services.ConfigureDatabase();
 
             builder.Services.ConfigureRepositories();
             builder.Services.ConfigureManagers();
