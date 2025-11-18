@@ -1,6 +1,6 @@
 ﻿namespace DS.Api.Controllers
 {
-    [Route("api/seed")]
+    [Route("seed")]
     [ApiController]
     public class SeedController(ISeedManager seedManager) : ControllerBase
     {

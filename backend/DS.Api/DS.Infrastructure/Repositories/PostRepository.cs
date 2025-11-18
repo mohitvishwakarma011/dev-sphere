@@ -46,7 +46,8 @@ namespace DS.Infrastructure.Repositories
         .Include(x => x.Likes)
         .Include(x => x.PostTags)
             .ThenInclude(pt => pt.Tag)
-        .AsQueryable();
+        .AsQueryable()
+        .Where(x => x.Status != Constants.RecordStatus.Deleted);
 
             if (!string.IsNullOrWhiteSpace(filterModel.FilterKey))
             {
@@ -120,7 +121,7 @@ namespace DS.Infrastructure.Repositories
         {
             var result = await context.Posts.AsQueryable()
                 .AsNoTracking()
-                .Where(x => x.Id == id)
+                .Where(x => x.Id == id && x.Status != Constants.RecordStatus.Deleted)
                 .Select(p => new PostDto
                 {
                     Id = p.Id,
@@ -168,6 +169,12 @@ namespace DS.Infrastructure.Repositories
                 }).FirstOrDefaultAsync();
 
             return result;
+        }
+
+        public async Task DeletePost(int id)
+        {
+            var post = await context.Posts.SingleAsync(p => p.Id == id);
+            post.Status = Constants.RecordStatus.Deleted;
         }
     }
 }

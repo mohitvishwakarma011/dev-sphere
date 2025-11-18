@@ -11,5 +11,6 @@ namespace DS.Core.Abstraction.Managers
         Task<bool> IsExistAsync(int id);
         Task<TableResponseDto<PostDto>> GetListAsync(PostFilterModel model);
         Task<PostDto> GetByIdAsync(int id);
+        Task DeletePost(int id);
     }
 }
