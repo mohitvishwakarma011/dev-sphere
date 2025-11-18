@@ -1,4 +1,6 @@
-﻿namespace DS.Infrastructure.Repositories
+﻿using DS.Core.Dto.User;
+
+namespace DS.Infrastructure.Repositories
 {
     public class UserRepository(AppDbContext context) : IUserRepository
     {
@@ -7,24 +9,36 @@
             await context.Users.AddAsync(user);
         }
 
-        public Task DeleteAsync(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.Users.AsNoTracking().SingleAsync(x => x.Id == id);
         }
 
-        public Task<User> GetByIdAsync(int id)
+        public async Task<IList<UserDto>> GetListAsync()
         {
-            throw new NotImplementedException();
+            return await context.Users.AsNoTracking().Where(x=>x.Status!=Constants.RecordStatus.Deleted).Select(x => new UserDto
+            {
+                Id = x.Id,
+                UserEmail = x.UserName,
+                UserName = x.UserEmail,
+                Role = x.Role,
+                Status = x.Status
+            }).ToListAsync(); 
         }
 
-        public Task<IList<User>> GetListAsync()
+        public void Update(User user)
         {
-            throw new NotImplementedException();
+            context.Users.Update(user);
         }
 
-        public Task UpdateAsync(User user)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var user = await context.Users.SingleAsync(x => x.Id == id);
+            if(user != null)
+            {
+                user.Status = Constants.RecordStatus.Deleted;
+            }
         }
+
     }
 }

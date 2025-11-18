@@ -1,4 +1,7 @@
-﻿namespace DS.Api
+﻿using DS.Api.Middlewares;
+using DS.Api.Validators.User;
+
+namespace DS.Api
 {
     public static class Extensions
     {
@@ -11,11 +14,24 @@
         {
             services.AddScoped<IUserRepository,UserRepository>();
             services.AddScoped<IUnitOfWork,UnitOfWork>();
+            services.AddScoped<ISeedRepository,SeedRepository>();
         }
 
         public static void ConfigureManagers(this IServiceCollection services)
         {
             services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<ISeedManager, SeedManager>();
+
+        }
+
+        public static void ConfigureMiddlewares(this IApplicationBuilder builder)
+        {
+            builder.UseMiddleware<ExceptionHandling>();
+        }
+
+        public static void ConfigureValidators(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<UserModel>, UserUpsertValidator>();
         }
     }
 }
