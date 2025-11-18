@@ -1,4 +1,8 @@
 ﻿
+using DS.Core.Dto;
+using DS.Core.Dto.Post;
+using DS.Core.Models.FilterModel;
+
 namespace DS.Application.Managers
 {
     public class PostManager(IPostRepository repository,IUnitOfWork unitOfWork) : IPostManager
@@ -38,6 +42,16 @@ namespace DS.Application.Managers
         public async Task<bool> IsExistAsync(int id)
         {
             return await repository.IsExistAsync(id);
+        }
+
+        public async Task<TableResponseDto<PostDto>> GetListAsync(PostFilterModel filterModel)
+        {
+            return await repository.GetListAsync(filterModel);
+        }
+
+        public async Task<PostDto> GetByIdAsync(int id)
+        {
+            return await repository.GetByIdAsync(id);
         }
     }
 }

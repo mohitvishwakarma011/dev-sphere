@@ -12,6 +12,7 @@
         public int ViewsCount { get; set; }
         public User User { get; set; } = null!;
         public Category Category { get; set; } = null!;
+        public Subcategory SubCategory { get; set; } = null!;
         public List<Comment> Comments { get; set; } = new List<Comment>();
         public List<PostTag> PostTags { get; set; } = new List<PostTag>();
         public List<Like> Likes { get; set; } = new List<Like>();
