@@ -11,5 +11,6 @@ namespace DS.Core.Abstraction.Managers
         Task<UserDto> GetByIdAsync(int id);
         Task<TableResponseDto<UserDto>> GetListAsync();
         Task DeleteAsync(int id);
+        Task<bool> IsExistAsyncByUserEmail(string email);
     }
 }

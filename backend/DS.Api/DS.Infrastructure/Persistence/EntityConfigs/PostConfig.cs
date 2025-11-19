@@ -26,6 +26,8 @@
                 .WithMany()
                 .HasForeignKey(x => x.SubCategoryId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+
         }
     }
 }    

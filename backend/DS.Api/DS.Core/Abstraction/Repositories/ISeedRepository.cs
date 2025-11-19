@@ -4,6 +4,7 @@
     {
         Task SeedCategories();
         Task SeedSubCategories();
+        Task SeedAdminAndRoleAsync();
     }
 
 }

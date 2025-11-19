@@ -10,8 +10,8 @@
             builder.Property(x=>x.Id).ValueGeneratedOnAdd().IsRequired();
             builder.Property(x => x.UserName).HasMaxLength(256).IsRequired();
             builder.Property(x=>x.UserEmail).HasMaxLength(256).IsRequired();
-            builder.Property(x => x.PasswordHash).HasColumnType("nvarchar(max)").IsRequired();
-            builder.Property(x => x.Role).HasMaxLength(256).IsRequired(false);
+            builder.Property(x => x.PasswordHash).HasColumnType("nvarchar(max)").IsRequired(); 
+            //builder.Property(x => x.Role).HasMaxLength(256).IsRequired(false);
         }
     }
 }

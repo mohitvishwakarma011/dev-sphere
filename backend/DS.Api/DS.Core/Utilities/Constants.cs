@@ -8,5 +8,8 @@
             InActive = 2,
             Deleted = 3
         }
+
+        public const string DefaultCorsPolicy = "AllowValidOrigins";
+
     }
 }

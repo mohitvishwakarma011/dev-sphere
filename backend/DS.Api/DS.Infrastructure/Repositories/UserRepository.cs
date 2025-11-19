@@ -16,14 +16,14 @@ namespace DS.Infrastructure.Repositories
 
         public async Task<IList<UserDto>> GetListAsync()
         {
-            return await context.Users.AsNoTracking().Where(x=>x.Status!=Constants.RecordStatus.Deleted).Select(x => new UserDto
+            return await context.Users.AsNoTracking().Where(x => x.Status != Constants.RecordStatus.Deleted).Select(x => new UserDto
             {
                 Id = x.Id,
                 UserEmail = x.UserName,
                 UserName = x.UserEmail,
-                Role = x.Role,
+                //Role = x.Role,
                 Status = x.Status
-            }).ToListAsync(); 
+            }).ToListAsync();
         }
 
         public void Update(User user)
@@ -34,11 +34,21 @@ namespace DS.Infrastructure.Repositories
         public async Task DeleteAsync(int id)
         {
             var user = await context.Users.SingleAsync(x => x.Id == id);
-            if(user != null)
+            if (user != null)
             {
                 user.Status = Constants.RecordStatus.Deleted;
             }
         }
 
+        public async Task<bool> IsExistAsyncByUserEmail(string email)
+        {
+            return await context.Users.AnyAsync(x => x.UserEmail == email);
+        }
+
+        public async Task AssignDefaultRole(User user)
+        {
+            var userRole = await context.Roles.SingleAsync(x => x.Name.ToUpper() == "User".ToUpper());
+            user.UserRoles.Add(new UserRole { UserId = user.Id, RoleId = userRole.Id });
+        }
     }
 }

@@ -8,7 +8,6 @@ namespace DS.Core.Models
         public string UserName { get; set; } = String.Empty;
         public string UserEmail { get; set; } = String.Empty;
         public string Password { get; set; } = String.Empty;
-        public string Role { get; set; } = String.Empty;
         public Constants.RecordStatus Status { get; set; }
     }
 }

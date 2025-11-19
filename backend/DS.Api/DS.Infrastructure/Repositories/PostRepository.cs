@@ -74,7 +74,7 @@ namespace DS.Infrastructure.Repositories
                     User = new UserDto
                     {
                         Id = p.User.Id,
-                        Role = p.User.Role,
+                        //Role = p.User.Role,
                         Status = p.User.Status,
                         UserEmail = p.User.UserEmail,
                         UserName = p.User.UserName,
@@ -133,7 +133,7 @@ namespace DS.Infrastructure.Repositories
                     User = new UserDto
                     {
                         Id = p.User.Id,
-                        Role = p.User.Role,
+                        //Role = p.User.Role,
                         Status = p.User.Status,
                         UserEmail = p.User.UserEmail,
                         UserName = p.User.UserName,
