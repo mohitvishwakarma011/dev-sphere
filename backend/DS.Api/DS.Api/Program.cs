@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DS.Api
@@ -9,6 +10,7 @@ namespace DS.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Configuration.LoadAppSetting();
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -17,8 +19,10 @@ namespace DS.Api
             builder.Services.AddEndpointsApiExplorer(); 
             builder.Services.AddSwaggerGen();
             builder.Services.AddHttpContextAccessor();
+
             //Add DbContext
             builder.Services.ConfigureDatabase();
+            builder.Services.ConfigureIdentity();
 
             builder.Services.ConfigureRepositories();
             builder.Services.ConfigureManagers();

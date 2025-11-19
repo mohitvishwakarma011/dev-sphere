@@ -2,7 +2,7 @@
 
 namespace DS.Api.Controllers
 {
-    [Route("api/post")]
+    [Route("post")]
     [ApiController]
     public class PostController(
         IPostManager postManager,
@@ -61,6 +61,20 @@ namespace DS.Api.Controllers
             try
             {
                 return Ok(await postManager.GetByIdAsync(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int id)
+        {
+            try
+            {
+                await postManager.DeletePost(id);
+                return Ok();
             }
             catch (Exception ex)
             {

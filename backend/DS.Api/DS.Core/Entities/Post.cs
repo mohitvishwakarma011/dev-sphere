@@ -1,4 +1,6 @@
-﻿namespace DS.Core.Entities 
+﻿using DS.Core.Utilities;
+
+namespace DS.Core.Entities 
 {
     public class Post
     {
@@ -10,6 +12,7 @@
         public int CategoryId { get; set; }// FK for Category
         public int SubCategoryId { get ; set; }//FK for subcategory 
         public int ViewsCount { get; set; }
+        public Constants.RecordStatus Status { get; set; }
         public User User { get; set; } = null!;
         public Category Category { get; set; } = null!;
         public Subcategory SubCategory { get; set; } = null!;

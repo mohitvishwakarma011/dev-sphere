@@ -33,8 +33,21 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7062;http://localhost:5159",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "JWT_ISSUER": "devsphere.identity",
+        "JWT_AUDIENCE": "414e1927a3884f68abc79f7283837fd1",
+        "JWT_SECRET": "qMCdFDQuF23RV1Y-1Gq9L3cF3VmuFwVbam4fMTdAfpo1Gq9L3cF3VmuFwVbam4fMTdAfp",
+        "APP_VALID_ORIGINS": "https://localhost:44328",
+        "MSSQL_DATA_SOURCE": "localhost\\SQLEXPRESS",
+        "MSSQL_INITIAL_CATALOG": "devsphere",
+        "MSSQL_TRUSTED_CONNECTION": "true",
+        "MSSQL_TRUST_SERVER_CERTIFICATE": "true",
+        "MSSQL_MULTIPLE_ACTIVE_RESULT_SETS": "true",
+        "MSSQL_INTEGRATED_SECURITY": "false",
+        "MSSQL_USER": "",
+        "MSSQL_PASSWORD": ""
       }
     }
   }

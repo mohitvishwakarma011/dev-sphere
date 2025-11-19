@@ -17,6 +17,7 @@ namespace DS.Application.Managers
                 Content = model.Content,
                 SubCategoryId = model.SubCategoryId,
                 CreatedAt = DateTime.Now,
+                Status = Constants.RecordStatus.Active
             };
 
             await repository.AddAsync(post);
@@ -52,6 +53,12 @@ namespace DS.Application.Managers
         public async Task<PostDto> GetByIdAsync(int id)
         {
             return await repository.GetByIdAsync(id);
+        }
+
+        public async Task DeletePost(int id)
+        {
+            await repository.DeletePost(id);
+            await unitOfWork.SaveChangesAsync();
         }
     }
 }

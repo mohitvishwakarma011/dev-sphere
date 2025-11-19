@@ -9,6 +9,7 @@ namespace DS.Core.Abstraction.Repositories
         Task<User> GetByIdAsync(int id);
         Task<IList<UserDto>> GetListAsync();
         Task DeleteAsync(int id);
-
+        Task<bool> IsExistAsyncByUserEmail(string email);
+        Task AssignDefaultRole(User user);
     }
 }

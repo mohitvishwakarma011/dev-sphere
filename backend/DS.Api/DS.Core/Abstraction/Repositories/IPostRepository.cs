@@ -11,5 +11,6 @@ namespace DS.Core.Abstraction.Repositories
         Task Update(Post post);
         Task<TableResponseDto<PostDto>> GetListAsync(PostFilterModel model);
         Task<PostDto> GetByIdAsync(int id);
+        Task DeletePost(int id);
     }
 }

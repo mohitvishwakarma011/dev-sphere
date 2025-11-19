@@ -21,6 +21,9 @@ namespace DS.Infrastructure.Persistence
         public DbSet<PostTag> PostTags { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +39,8 @@ namespace DS.Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new TagConfig());
             modelBuilder.ApplyConfiguration(new UserConfig());
             modelBuilder.ApplyConfiguration(new SubCategoryConfig());
+            modelBuilder.ApplyConfiguration(new UserRoleConfig());
+            modelBuilder.ApplyConfiguration(new RoleConfig());
 
         }
     }

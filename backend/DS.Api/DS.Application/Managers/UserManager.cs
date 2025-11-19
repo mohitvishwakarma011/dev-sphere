@@ -23,11 +23,12 @@ namespace DS.Application.Managers
                 PasswordHash = userModel.Password,
                 UserName = userModel.UserName,
                 UserEmail = userModel.UserEmail,
-                Role = userModel.Role,
                 Status = Constants.RecordStatus.Active
 
             };
             await userRepository.AddAsync(user);
+            await unitOfWork.SaveChangesAsync();
+            await userRepository.AssignDefaultRole(user);
             await unitOfWork.SaveChangesAsync();
         }
 
@@ -40,7 +41,7 @@ namespace DS.Application.Managers
                 user.PasswordHash = userModel.Password;
                 user.UserName = userModel.UserName;
                 user.UserEmail = userModel.UserEmail;
-                user.Role = userModel.Role;
+                //user.Role = userModel.Role;
                 user.Status = userModel.Status;
 
                 userRepository.Update(user);
@@ -56,7 +57,7 @@ namespace DS.Application.Managers
                 Id = user.Id,
                 UserName = user.UserName,
                 UserEmail = user.UserEmail,
-                Role = user.Role
+                //Role = user.Role
             };
         }
 
@@ -74,6 +75,11 @@ namespace DS.Application.Managers
         {
             await userRepository.DeleteAsync(id);
             await unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsExistAsyncByUserEmail(string email)
+        {
+            return await userRepository.IsExistAsyncByUserEmail(email);
         }
     }
 }

@@ -46,7 +46,8 @@ namespace DS.Infrastructure.Repositories
         .Include(x => x.Likes)
         .Include(x => x.PostTags)
             .ThenInclude(pt => pt.Tag)
-        .AsQueryable();
+        .AsQueryable()
+        .Where(x => x.Status != Constants.RecordStatus.Deleted);
 
             if (!string.IsNullOrWhiteSpace(filterModel.FilterKey))
             {
@@ -73,7 +74,7 @@ namespace DS.Infrastructure.Repositories
                     User = new UserDto
                     {
                         Id = p.User.Id,
-                        Role = p.User.Role,
+                        //Role = p.User.Role,
                         Status = p.User.Status,
                         UserEmail = p.User.UserEmail,
                         UserName = p.User.UserName,
@@ -120,7 +121,7 @@ namespace DS.Infrastructure.Repositories
         {
             var result = await context.Posts.AsQueryable()
                 .AsNoTracking()
-                .Where(x => x.Id == id)
+                .Where(x => x.Id == id && x.Status != Constants.RecordStatus.Deleted)
                 .Select(p => new PostDto
                 {
                     Id = p.Id,
@@ -132,7 +133,7 @@ namespace DS.Infrastructure.Repositories
                     User = new UserDto
                     {
                         Id = p.User.Id,
-                        Role = p.User.Role,
+                        //Role = p.User.Role,
                         Status = p.User.Status,
                         UserEmail = p.User.UserEmail,
                         UserName = p.User.UserName,
@@ -168,6 +169,12 @@ namespace DS.Infrastructure.Repositories
                 }).FirstOrDefaultAsync();
 
             return result;
+        }
+
+        public async Task DeletePost(int id)
+        {
+            var post = await context.Posts.SingleAsync(p => p.Id == id);
+            post.Status = Constants.RecordStatus.Deleted;
         }
     }
 }
