@@ -1,4 +1,6 @@
 ﻿using DS.Core.Models.FilterModel;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace DS.Api.Controllers
 {
@@ -9,7 +11,8 @@ namespace DS.Api.Controllers
         IValidator<PostModel> postValidator) : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> AddPost([FromBody]PostModel postModel)
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> AddPost([FromBody] PostModel postModel)
         {
             try
             {
@@ -30,6 +33,7 @@ namespace DS.Api.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> UpdatePost([FromBody] PostModel postModel)
         {
             try
@@ -56,7 +60,7 @@ namespace DS.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetByIdAsync([FromRoute]int id)
+        public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
         {
             try
             {
@@ -69,6 +73,7 @@ namespace DS.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             try

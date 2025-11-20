@@ -1,10 +1,13 @@
-﻿namespace DS.Api.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace DS.Api.Controllers
 {
     [Route("seed")]
     [ApiController]
     public class SeedController(ISeedManager seedManager) : ControllerBase
     {
-        [HttpGet]
+        [HttpPost]
+        [Authorize(Roles="Admin")]
         public async Task<IActionResult> SeedData()
         {
             try

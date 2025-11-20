@@ -44,7 +44,7 @@ namespace DS.Infrastructure.Repositories
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AppSetting.Jwt.Secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.UtcNow.AddMinutes(720);
+            var expires = DateTime.UtcNow.AddMinutes(10);
 
             var token = new JwtSecurityToken(
                 issuer: AppSetting.Jwt.Issuer,

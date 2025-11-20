@@ -1,5 +1,6 @@
 ﻿
 using DS.Core.Dto.User;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DS.Api.Controllers
 {
@@ -17,27 +18,8 @@ namespace DS.Api.Controllers
             this.accessor = accessor;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddUser([FromBody] UserModel userModel)
-        {
-            try
-            {
-                var validationResult = await userValidator.ValidateAsync(userModel);
-                if (!validationResult.IsValid)
-                {
-                    return BadRequest(validationResult.Errors.Select(x => x.ErrorMessage).ToList());
-                }
-                await userManager.AddUser(userModel);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-        }
-
         [HttpPut]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> UpdateUser([FromBody] UserModel userModel)
         {
             try
@@ -79,6 +61,7 @@ namespace DS.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser([FromRoute]int id)
         {
             try

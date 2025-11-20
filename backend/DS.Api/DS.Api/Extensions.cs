@@ -103,7 +103,8 @@ namespace DS.Api
                      ValidateIssuerSigningKey = true,
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(AppSetting.Jwt.Secret)),
                      ValidateIssuer = true,
-                     ValidateAudience = false
+                     ValidateAudience = false,
+                     ValidateLifetime = true
                  };
              });
         }
