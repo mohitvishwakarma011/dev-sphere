@@ -4,7 +4,7 @@ namespace DS.Api.Controllers
 {
     [Route("seed")]
     [ApiController]
-    public class SeedController(ISeedManager seedManager) : ControllerBase
+    public class SeedController(ISeedManager seedManager ,IHttpContextAccessor context) : BaseController(context)
     {
         [HttpPost]
         [Authorize(Roles="Admin")]

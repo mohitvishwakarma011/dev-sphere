@@ -2,6 +2,8 @@
 {
     public static class AppSetting
     {
+        public static string AuthToken = null!;
+        public static string[] ValidOrigins { get; set; } = [];
         public static class Jwt
         {
             public static string Secret { get; set; } = null!;
@@ -28,7 +30,6 @@
             public static string IntegratedSecurity { get; set; } = null!;
         }
 
-        public static string[] ValidOrigins { get; set; } = [];
         public static string GetConnectionString()
         {
             //return "Server=" + Database.DataSource + ";Database=" + Database.Catalog + ";User Id=" + Database.UserName + ";Password=" + Database.Password + ";Trusted_Connection=" + Database.TrustedConnection + ";Integrated Security=" + Database.IntegratedSecurity + ";MultipleActiveResultSets=" + Database.MultipleActiveResultSets + ";TrustServerCertificate=" + Database.TrustServerCertificate;

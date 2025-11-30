@@ -46,7 +46,7 @@ namespace DS.Api
             services.AddScoped<ISeedRepository,SeedRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
-
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         }
 
@@ -56,7 +56,7 @@ namespace DS.Api
             services.AddScoped<ISeedManager, SeedManager>();
             services.AddScoped<IPostManager, PostManager>();
             services.AddScoped<IAuthManager, AuthManager>();
-
+            services.AddScoped<ICategoryManager, CategoryManager>();
         }
 
         public static void ConfigureMiddlewares(this IApplicationBuilder builder)
@@ -104,7 +104,8 @@ namespace DS.Api
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(AppSetting.Jwt.Secret)),
                      ValidateIssuer = true,
                      ValidateAudience = false,
-                     ValidateLifetime = true
+                     ValidateLifetime = true,
+                     ClockSkew = TimeSpan.Zero
                  };
              });
         }

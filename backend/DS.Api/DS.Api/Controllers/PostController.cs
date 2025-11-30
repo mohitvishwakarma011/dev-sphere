@@ -8,7 +8,7 @@ namespace DS.Api.Controllers
     [ApiController]
     public class PostController(
         IPostManager postManager,
-        IValidator<PostModel> postValidator) : ControllerBase
+        IValidator<PostModel> postValidator, IHttpContextAccessor context): BaseController(context)
     {
         [HttpPost]
         [Authorize(Roles = "Admin,User")]
@@ -53,12 +53,14 @@ namespace DS.Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("list")]
         public async Task<IActionResult> GetList([FromQuery] PostFilterModel filterModel)
         {
             return Ok(await postManager.GetListAsync(filterModel));
         }
 
+        [Authorize]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
         {

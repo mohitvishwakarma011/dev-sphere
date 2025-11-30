@@ -16,12 +16,13 @@ namespace DS.Api
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddEndpointsApiExplorer(); 
             builder.Services.AddSwaggerGen();
-            builder.Services.AddHttpContextAccessor();
 
             //Add DbContext
             builder.Services.ConfigureDatabase();
+            builder.Services.ConfigureDefaults();
             builder.Services.ConfigureIdentity();
 
             builder.Services.ConfigureRepositories();
@@ -39,7 +40,7 @@ namespace DS.Api
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

@@ -6,12 +6,12 @@ namespace DS.Api.Controllers
 {
     [Route("user")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         public IUserManager userManager;
         public IValidator<UserModel> userValidator;
         public IHttpContextAccessor accessor;
-        public UserController(IUserManager userManager, IValidator<UserModel> userValidator,IHttpContextAccessor accessor)
+        public UserController(IUserManager userManager, IValidator<UserModel> userValidator,IHttpContextAccessor accessor) : base(accessor)
         {
             this.userManager = userManager;
             this.userValidator = userValidator;
@@ -40,13 +40,12 @@ namespace DS.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> GetUserById([FromRoute]int id)
         {
             try
             {
-                //return Ok( HttpContext.Request );
                 return Ok(await userManager.GetByIdAsync(id));
-
             }
             catch(Exception ex)
             {
@@ -55,6 +54,7 @@ namespace DS.Api.Controllers
         }
 
         [HttpGet("list")]
+        [Authorize]
         public async Task<IActionResult> GetUserList()
         {
             return  Ok(await userManager.GetListAsync());
