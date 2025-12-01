@@ -9,5 +9,8 @@ namespace DS.Core.Abstraction.Repositories
         Task<IList<string>> SubCategoriesExistByNamesAsync(string[] Names);
         void UpdateAsync(UpdateCategoryDto category);
         Task<Category?> GetCategoryByIdAsync(int id);
+        Task<Category?> GetUntrackedCategoryByIdAsync(int id);
+        Task<IList<CategoryDto>> GetCategoryListAsync();
+        Task DeleteCategoryAsync(int id);
     }
 }

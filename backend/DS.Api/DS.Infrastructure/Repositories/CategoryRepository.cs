@@ -1,5 +1,7 @@
 ﻿using DS.Core.Dto.Category;
+using DS.Core.Dto.SubCategory;
 using DS.Core.Entities;
+using System.Runtime.CompilerServices;
 
 namespace DS.Infrastructure.Repositories
 {
@@ -59,5 +61,36 @@ namespace DS.Infrastructure.Repositories
             return await context.Categories.Include(c => c.Subcategories).SingleOrDefaultAsync(c => c.Id == id);
         }
 
+        public async Task<Category?> GetUntrackedCategoryByIdAsync(int id)
+        {
+            return await context.Categories.AsNoTracking().Include(c => c.Subcategories).SingleOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<IList<CategoryDto>> GetCategoryListAsync()
+        {
+            return await context.Categories.AsNoTracking().Where(c => c.Status != Constants.RecordStatus.Deleted)
+                .OrderBy(c => c.Name).Select(c => new CategoryDto
+                { Name = c.Name, Description = c.Description, Id = c.Id, Status = c.Status }).ToListAsync();
+        }
+
+        public async Task DeleteCategoryAsync(int id)
+        {
+            var category = await context.Categories.Include(c => c.Subcategories)
+                .SingleOrDefaultAsync(c => c.Id == id);
+
+            if (category == null)
+            {
+                throw new InvalidOperationException("Category does not exist.");
+            }
+
+            category.Status = Constants.RecordStatus.Deleted;
+            foreach(var sc in category.Subcategories)
+            {
+                sc.CategoryId = null;
+            }
+
+            context.Categories.Update(category);
+
+        }
     }
 }

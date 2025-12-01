@@ -39,7 +39,7 @@ namespace DS.Application.Managers
             await unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<CategoryDto> GetCategoryByIdAsync(int id)
+        public async Task<CategoryDto> GetUntrackedCategoryByIdAsync(int id)
         {
             var category = await repository.GetCategoryByIdAsync(id);
             if (category == null)
@@ -64,6 +64,17 @@ namespace DS.Application.Managers
             };
 
             return categoryDto;
+        }
+
+        public async Task<IList<CategoryDto>> GetCategoryListAsync()
+        {
+            return await repository.GetCategoryListAsync();
+        }
+
+        public async Task DeleteCategoryAsync(int id)
+        {
+            await repository.DeleteCategoryAsync(id);
+            await unitOfWork.SaveChangesAsync();
         }
     }
 }

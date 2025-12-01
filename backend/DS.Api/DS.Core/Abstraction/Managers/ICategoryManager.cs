@@ -8,6 +8,8 @@ namespace DS.Core.Abstraction.Managers
         Task<bool> CategoryExistByNameAsync(string name);
         Task<IList<string>> SubCategoriesExistByNamesAsync(string[] Names);
         void UpdateCategory(UpdateCategoryDto categoryDto);
-        Task<CategoryDto> GetCategoryByIdAsync(int id);
+        Task<CategoryDto> GetUntrackedCategoryByIdAsync(int id);
+        Task<IList<CategoryDto>> GetCategoryListAsync();
+        Task DeleteCategoryAsync(int id);
     }
 }

@@ -63,13 +63,42 @@ namespace DS.Api.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("{id:int}")]
         [Authorize]
         public async Task<IActionResult> GetCategoryById([FromRoute] int id)
         {
             try
             {
-                return Ok(await categoryManager.GetCategoryByIdAsync(id));
+                return Ok(await categoryManager.GetUntrackedCategoryByIdAsync(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetCategoryList()
+        {
+            try
+            {
+                return Ok(await categoryManager.GetCategoryListAsync());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] int id)
+        {
+            try
+            {
+                await categoryManager.DeleteCategoryAsync(id);
+                return Ok();
             }
             catch (Exception ex)
             {
