@@ -14,7 +14,7 @@
             builder.HasOne(x=>x.Category)
                 .WithMany(c=>c.Subcategories)
                 .HasForeignKey(x=>x.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.SetNull).IsRequired(false);
         }
     }
 }

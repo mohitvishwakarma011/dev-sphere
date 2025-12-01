@@ -28,7 +28,7 @@ namespace DS.Api
             builder.Services.ConfigureRepositories();
             builder.Services.ConfigureManagers();
             builder.Services.ConfigureValidators();
-
+            
             var app = builder.Build();
             //app.ConfigureMiddlewares(); //Configure Middlewares
 
@@ -38,7 +38,7 @@ namespace DS.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();

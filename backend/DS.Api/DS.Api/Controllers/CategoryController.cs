@@ -5,7 +5,7 @@ namespace DS.Api.Controllers
 {
     [Route("category")]
     [ApiController]
-    public class CategoryController(IHttpContextAccessor context, ICategoryManager categoryManager) : BaseController(context)
+    public class CategoryController(IHttpContextAccessor context, ICategoryManager categoryManager, IValidator<CategoryDto> categoryValidator, IValidator<UpdateCategoryDto> updateCategoryValidator) : BaseController(context)
     {
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -13,6 +13,14 @@ namespace DS.Api.Controllers
         {
             try
             {
+                //Validation
+                var validationResult = await categoryValidator.ValidateAsync(categoryDto);
+
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors.ToList());
+                }
+
                 var doesCategoryExist = await categoryManager.CategoryExistByNameAsync(categoryDto.Name.Trim());
                 if (doesCategoryExist)
                 {
@@ -28,6 +36,40 @@ namespace DS.Api.Controllers
                 }
                 await categoryManager.AddAsync(categoryDto);
                 return Created();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryDto dto)
+        {
+            try
+            {
+                var validationResult = await updateCategoryValidator.ValidateAsync(dto);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors.ToList());
+                }
+                categoryManager.UpdateCategory(dto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetCategoryById([FromRoute] int id)
+        {
+            try
+            {
+                return Ok(await categoryManager.GetCategoryByIdAsync(id));
             }
             catch (Exception ex)
             {

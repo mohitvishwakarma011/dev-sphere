@@ -1,7 +1,9 @@
 ﻿using DS.Api.Middlewares;
+using DS.Api.Validators.Category;
 using DS.Api.Validators.Post;
 using DS.Api.Validators.User;
 using DS.Core;
+using DS.Core.Dto.Category;
 using DS.Core.Entities;
 using DS.Core.Utilities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,7 +19,7 @@ namespace DS.Api
         public static void LoadAppSetting(this IConfiguration configuration)
         {
             AppSetting.ValidOrigins = Environment.GetEnvironmentVariable("APP_VALID_ORIGINS").Split(',', StringSplitOptions.RemoveEmptyEntries) ?? throw new KeyNotFoundException();
-            
+
 
             AppSetting.Database.DataSource = Environment.GetEnvironmentVariable("MSSQL_DATA_SOURCE") ?? throw new KeyNotFoundException();
             AppSetting.Database.Catalog = Environment.GetEnvironmentVariable("MSSQL_INITIAL_CATALOG") ?? throw new KeyNotFoundException();
@@ -41,9 +43,9 @@ namespace DS.Api
         }
         public static void ConfigureRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IUserRepository,UserRepository>();
-            services.AddScoped<IUnitOfWork,UnitOfWork>();
-            services.AddScoped<ISeedRepository,SeedRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ISeedRepository, SeedRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -68,6 +70,9 @@ namespace DS.Api
         {
             services.AddScoped<IValidator<UserModel>, UserUpsertValidator>();
             services.AddScoped<IValidator<PostModel>, PostValidator>();
+            services.AddScoped<IValidator<UpdateCategoryDto>, UpdateCategoryValidator>();
+            services.AddScoped<IValidator<CategoryDto>, CategoryValidator>();
+
         }
 
         public static void ConfigureDefaults(this IServiceCollection services)
@@ -79,6 +84,11 @@ namespace DS.Api
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials());
+            });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
             });
         }
 
