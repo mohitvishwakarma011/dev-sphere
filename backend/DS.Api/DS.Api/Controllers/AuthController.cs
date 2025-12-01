@@ -7,7 +7,7 @@ namespace DS.Api.Controllers
 {
     [Route("auth")]
     [ApiController]
-    public class AuthController(IUserManager userManager, IValidator<UserModel> userValidator, IPasswordHasher<UserModel> passwordHasher,IAuthRepository authRepository,IHttpContextAccessor context) : BaseController(context)
+    public class AuthController(IUserManager userManager, IValidator<UserModel> userValidator, IPasswordHasher<UserModel> passwordHasher,IAuthRepository authRepository) : ControllerBase
     {
         [HttpPost("register")]
         [AllowAnonymous]

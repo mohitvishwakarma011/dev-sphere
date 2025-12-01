@@ -77,7 +77,7 @@ namespace DS.Api.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("list")]
         [Authorize]
         public async Task<IActionResult> GetCategoryList()
         {

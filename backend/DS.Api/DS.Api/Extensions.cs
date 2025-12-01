@@ -1,9 +1,11 @@
 ﻿using DS.Api.Middlewares;
 using DS.Api.Validators.Category;
+using DS.Api.Validators.Comment;
 using DS.Api.Validators.Post;
 using DS.Api.Validators.User;
 using DS.Core;
 using DS.Core.Dto.Category;
+using DS.Core.Dto.Comment;
 using DS.Core.Entities;
 using DS.Core.Utilities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -49,6 +51,7 @@ namespace DS.Api
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
 
         }
 
@@ -59,6 +62,8 @@ namespace DS.Api
             services.AddScoped<IPostManager, PostManager>();
             services.AddScoped<IAuthManager, AuthManager>();
             services.AddScoped<ICategoryManager, CategoryManager>();
+            services.AddScoped<ICommentManager, CommentManager>();
+
         }
 
         public static void ConfigureMiddlewares(this IApplicationBuilder builder)
@@ -72,6 +77,7 @@ namespace DS.Api
             services.AddScoped<IValidator<PostModel>, PostValidator>();
             services.AddScoped<IValidator<UpdateCategoryDto>, UpdateCategoryValidator>();
             services.AddScoped<IValidator<CategoryDto>, CategoryValidator>();
+            services.AddScoped<IValidator<UpsertCommentDto>, UpsertCommentValidator>();
 
         }
 
