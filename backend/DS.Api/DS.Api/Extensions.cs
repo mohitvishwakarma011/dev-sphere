@@ -52,6 +52,7 @@ namespace DS.Api
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
 
         }
 
@@ -63,7 +64,7 @@ namespace DS.Api
             services.AddScoped<IAuthManager, AuthManager>();
             services.AddScoped<ICategoryManager, CategoryManager>();
             services.AddScoped<ICommentManager, CommentManager>();
-
+            services.AddScoped<ILikeManager, LikeManager>();
         }
 
         public static void ConfigureMiddlewares(this IApplicationBuilder builder)

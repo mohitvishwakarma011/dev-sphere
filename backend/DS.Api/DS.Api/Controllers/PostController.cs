@@ -57,7 +57,7 @@ namespace DS.Api.Controllers
         [HttpGet("list")]
         public async Task<IActionResult> GetList([FromQuery] PostFilterModel filterModel)
         {
-            return Ok(await postManager.GetListAsync(filterModel));
+            return Ok(await postManager.GetListAsync(filterModel,UserId));
         }
 
         [Authorize]
@@ -66,7 +66,7 @@ namespace DS.Api.Controllers
         {
             try
             {
-                return Ok(await postManager.GetByIdAsync(id));
+                return Ok(await postManager.GetByIdAsync(id,UserId));
             }
             catch (Exception ex)
             {

@@ -1,4 +1,6 @@
-﻿using DS.Core.Dto.Comment;
+﻿using DS.Core.Dto;
+using DS.Core.Dto.Comment;
+using DS.Core.Models.FilterModel;
 
 namespace DS.Core.Abstraction.Repositories
 {
@@ -8,5 +10,6 @@ namespace DS.Core.Abstraction.Repositories
         void UpdateComment(Comment comment);
         Task<Comment> GetTrackedCommentByIdAsync(int id);
         Task<CommentDto> GetUntrackedCommentByIdAsync(int id);
+        Task<TableResponseDto<CommentDto>> GetCommentList(CommentFilterModel filterModel);
     }
 }

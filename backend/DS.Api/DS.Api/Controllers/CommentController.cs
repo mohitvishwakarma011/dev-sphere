@@ -1,4 +1,5 @@
-﻿using DS.Core.Dto.Comment;
+﻿using DS.Core.Dto;
+using DS.Core.Dto.Comment;
 using DS.Core.Models.FilterModel;
 using Microsoft.AspNetCore.Authorization;
 
@@ -64,11 +65,11 @@ namespace DS.Api.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("list")]
         [Authorize]
-        public async Task<IActionResult> GetCommentList([FromQuery] FilterModel filterModel)
+        public async Task<IActionResult> GetCommentList([FromQuery] CommentFilterModel filterModel)
         {
-            
+            return Ok(await commentManager.GetCommentList(filterModel));
         }
     }
 }

@@ -13,6 +13,7 @@ namespace DS.Core.Dto.Post
         public DateTime CreatedAt { get; set; }
         public int ViewsCount { get; set; }
         public int Likes { get; set; }
+        public bool Liked { get; set; }
 
         public UserDto User { get; set; } = new UserDto();
         public CategoryDto Category { get; set; } = new CategoryDto();

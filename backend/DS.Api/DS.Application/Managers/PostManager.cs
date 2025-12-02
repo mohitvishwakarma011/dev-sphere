@@ -16,7 +16,7 @@ namespace DS.Application.Managers
                 Title = model.Title,
                 Content = model.Content,
                 SubCategoryId = model.SubCategoryId,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 Status = Constants.RecordStatus.Active
             };
 
@@ -45,14 +45,14 @@ namespace DS.Application.Managers
             return await repository.IsExistAsync(id);
         }
 
-        public async Task<TableResponseDto<PostDto>> GetListAsync(PostFilterModel filterModel)
+        public async Task<TableResponseDto<PostDto>> GetListAsync(PostFilterModel filterModel, int userId)
         {
-            return await repository.GetListAsync(filterModel);
+            return await repository.GetListAsync(filterModel,userId);
         }
 
-        public async Task<PostDto> GetByIdAsync(int id)
+        public async Task<PostDto> GetByIdAsync(int id, int userId)
         {
-            return await repository.GetByIdAsync(id);
+            return await repository.GetByIdAsync(id,userId);
         }
 
         public async Task DeletePost(int id)

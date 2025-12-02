@@ -1,10 +1,12 @@
-﻿using DS.Core.Dto.Comment;
+﻿using DS.Core.Dto;
+using DS.Core.Dto.Comment;
+using DS.Core.Models.FilterModel;
 
 namespace DS.Application.Managers
 {
-    public class CommentManager(ICommentRepository commentRepository,IUnitOfWork unitOfWork) : ICommentManager
+    public class CommentManager(ICommentRepository commentRepository, IUnitOfWork unitOfWork) : ICommentManager
     {
-        public async Task AddCommentAsync(UpsertCommentDto commentDto,int userId)
+        public async Task AddCommentAsync(UpsertCommentDto commentDto, int userId)
         {
             var comment = new Comment
             {
@@ -21,7 +23,7 @@ namespace DS.Application.Managers
         public async Task UpdateCommentAsync(UpsertCommentDto commentDto)
         {
             var comment = await commentRepository.GetTrackedCommentByIdAsync(commentDto.Id);
-            if(comment == null)
+            if (comment == null)
             {
                 throw new InvalidOperationException("Comment does not exist.");
             }
@@ -35,6 +37,11 @@ namespace DS.Application.Managers
         public async Task<CommentDto> GetCommentByIdAsync(int id)
         {
             return await commentRepository.GetUntrackedCommentByIdAsync(id);
+        }
+
+        public async Task<TableResponseDto<CommentDto>> GetCommentList(CommentFilterModel filterModel)
+        {
+            return await commentRepository.GetCommentList(filterModel);
         }
     }
 }
