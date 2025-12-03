@@ -9,8 +9,8 @@ namespace DS.Core.Abstraction.Repositories
         Task AddAsync(Post post);
         Task<bool> IsExistAsync(int id);
         Task Update(Post post);
-        Task<TableResponseDto<PostDto>> GetListAsync(PostFilterModel model);
-        Task<PostDto> GetByIdAsync(int id);
+        Task<TableResponseDto<PostDto>> GetListAsync(PostFilterModel model,int userId);
+        Task<PostDto> GetByIdAsync(int id, int userId);
         Task DeletePost(int id);
     }
 }

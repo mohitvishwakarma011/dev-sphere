@@ -1,4 +1,6 @@
 ﻿using DS.Core.Models.FilterModel;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace DS.Api.Controllers
 {
@@ -6,10 +8,11 @@ namespace DS.Api.Controllers
     [ApiController]
     public class PostController(
         IPostManager postManager,
-        IValidator<PostModel> postValidator) : ControllerBase
+        IValidator<PostModel> postValidator, IHttpContextAccessor context): BaseController(context)
     {
         [HttpPost]
-        public async Task<IActionResult> AddPost([FromBody]PostModel postModel)
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> AddPost([FromBody] PostModel postModel)
         {
             try
             {
@@ -19,7 +22,7 @@ namespace DS.Api.Controllers
                     return BadRequest(validationResult.Errors.ToList());
                 }
 
-                await postManager.AddAsync(postModel);
+                await postManager.AddAsync(postModel,UserId);
                 return Ok();
             }
             catch (Exception ex)
@@ -30,6 +33,7 @@ namespace DS.Api.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> UpdatePost([FromBody] PostModel postModel)
         {
             try
@@ -49,18 +53,20 @@ namespace DS.Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("list")]
         public async Task<IActionResult> GetList([FromQuery] PostFilterModel filterModel)
         {
-            return Ok(await postManager.GetListAsync(filterModel));
+            return Ok(await postManager.GetListAsync(filterModel,UserId));
         }
 
+        [Authorize]
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetByIdAsync([FromRoute]int id)
+        public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
         {
             try
             {
-                return Ok(await postManager.GetByIdAsync(id));
+                return Ok(await postManager.GetByIdAsync(id,UserId));
             }
             catch (Exception ex)
             {
@@ -69,6 +75,7 @@ namespace DS.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             try

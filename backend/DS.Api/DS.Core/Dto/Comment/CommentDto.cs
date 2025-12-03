@@ -1,4 +1,6 @@
-﻿namespace DS.Core.Dto.Comment
+﻿using DS.Core.Utilities;
+
+namespace DS.Core.Dto.Comment
 {
     public class CommentDto
     {
@@ -7,5 +9,6 @@
         public DateTime CreatedAt { get; set; }
         public int PostId { get; set; }
         public int UserId { get; set; }
+        public Constants.RecordStatus Status { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace DS.Infrastructure.Repositories
             context.Posts.Update(postEntity);
         }
 
-        public async Task<TableResponseDto<PostDto>> GetListAsync(PostFilterModel filterModel)
+        public async Task<TableResponseDto<PostDto>> GetListAsync(PostFilterModel filterModel,int userId)
         {
             var query = context.Posts
         .AsNoTracking()
@@ -71,6 +71,7 @@ namespace DS.Infrastructure.Repositories
                     CreatedAt = p.CreatedAt,
                     ViewsCount = p.ViewsCount,
                     Likes = p.Likes.Count, // Assuming Post has a Likes navigation property
+                    Liked = p.Likes.Any(l => l.UserId == userId),
                     User = new UserDto
                     {
                         Id = p.User.Id,
@@ -117,7 +118,7 @@ namespace DS.Infrastructure.Repositories
             };
         }
 
-        public async Task<PostDto> GetByIdAsync(int id)
+        public async Task<PostDto> GetByIdAsync(int id,int userId)
         {
             var result = await context.Posts.AsQueryable()
                 .AsNoTracking()
@@ -130,6 +131,7 @@ namespace DS.Infrastructure.Repositories
                     CreatedAt = p.CreatedAt,
                     ViewsCount = p.ViewsCount,
                     Likes = p.Likes.Count, // Assuming Post has a Likes navigation property
+                    Liked = p.Likes.Any(l=>l.UserId == userId),
                     User = new UserDto
                     {
                         Id = p.User.Id,

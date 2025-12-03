@@ -1,4 +1,6 @@
-﻿namespace DS.Core.Entities
+﻿using DS.Core.Utilities;
+
+namespace DS.Core.Entities
 {
     public class Comment
     {
@@ -9,5 +11,6 @@
         public int UserId { get;set; }
         public Post Post { get; set; } = null!;
         public User User { get; set; } = null!;
+        public Constants.RecordStatus Status { get; set; }
     }
 }

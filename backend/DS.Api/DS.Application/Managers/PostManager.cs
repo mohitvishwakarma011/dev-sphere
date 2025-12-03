@@ -1,23 +1,25 @@
 ﻿
 using DS.Core.Dto;
 using DS.Core.Dto.Post;
+using DS.Core.Entities;
 using DS.Core.Models.FilterModel;
 
 namespace DS.Application.Managers
 {
     public class PostManager(IPostRepository repository,IUnitOfWork unitOfWork) : IPostManager
     {
-        public async Task AddAsync(PostModel model)
+        public async Task AddAsync(PostModel model,int userId)
         {
             var post = new Post
             {
-                AuthorId = model.AuthorId,
+                AuthorId = userId,
                 CategoryId = model.CategoryId,
                 Title = model.Title,
                 Content = model.Content,
                 SubCategoryId = model.SubCategoryId,
-                CreatedAt = DateTime.Now,
-                Status = Constants.RecordStatus.Active
+                CreatedAt = DateTime.UtcNow,
+                Status = Constants.RecordStatus.Active,
+                PostTags = model.TagIds.Select(t=> new PostTag { TagId = t}).ToList()
             };
 
             await repository.AddAsync(post);
@@ -45,14 +47,14 @@ namespace DS.Application.Managers
             return await repository.IsExistAsync(id);
         }
 
-        public async Task<TableResponseDto<PostDto>> GetListAsync(PostFilterModel filterModel)
+        public async Task<TableResponseDto<PostDto>> GetListAsync(PostFilterModel filterModel, int userId)
         {
-            return await repository.GetListAsync(filterModel);
+            return await repository.GetListAsync(filterModel,userId);
         }
 
-        public async Task<PostDto> GetByIdAsync(int id)
+        public async Task<PostDto> GetByIdAsync(int id, int userId)
         {
-            return await repository.GetByIdAsync(id);
+            return await repository.GetByIdAsync(id,userId);
         }
 
         public async Task DeletePost(int id)
