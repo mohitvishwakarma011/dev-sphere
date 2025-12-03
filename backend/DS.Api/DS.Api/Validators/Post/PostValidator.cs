@@ -16,10 +16,6 @@
                 .NotNull()
                 .WithMessage("Content is required.");
 
-            RuleFor(p => p.AuthorId)
-                .GreaterThan(0)
-                .WithMessage("AuthorId is required.");
-
             RuleFor(p => p.CategoryId)
                .GreaterThan(0)
                .WithMessage("CategoryId is required.");

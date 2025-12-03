@@ -22,7 +22,7 @@ namespace DS.Api.Controllers
                     return BadRequest(validationResult.Errors.ToList());
                 }
 
-                await postManager.AddAsync(postModel);
+                await postManager.AddAsync(postModel,UserId);
                 return Ok();
             }
             catch (Exception ex)

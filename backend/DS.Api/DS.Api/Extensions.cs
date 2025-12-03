@@ -53,7 +53,7 @@ namespace DS.Api
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ILikeRepository, LikeRepository>();
-
+            services.AddScoped<ITagRepository, TagRepository>();
         }
 
         public static void ConfigureManagers(this IServiceCollection services)
@@ -65,6 +65,7 @@ namespace DS.Api
             services.AddScoped<ICategoryManager, CategoryManager>();
             services.AddScoped<ICommentManager, CommentManager>();
             services.AddScoped<ILikeManager, LikeManager>();
+            services.AddScoped<ITagManager, TagManager>();
         }
 
         public static void ConfigureMiddlewares(this IApplicationBuilder builder)

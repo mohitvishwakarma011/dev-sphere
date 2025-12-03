@@ -1,23 +1,25 @@
 ﻿
 using DS.Core.Dto;
 using DS.Core.Dto.Post;
+using DS.Core.Entities;
 using DS.Core.Models.FilterModel;
 
 namespace DS.Application.Managers
 {
     public class PostManager(IPostRepository repository,IUnitOfWork unitOfWork) : IPostManager
     {
-        public async Task AddAsync(PostModel model)
+        public async Task AddAsync(PostModel model,int userId)
         {
             var post = new Post
             {
-                AuthorId = model.AuthorId,
+                AuthorId = userId,
                 CategoryId = model.CategoryId,
                 Title = model.Title,
                 Content = model.Content,
                 SubCategoryId = model.SubCategoryId,
                 CreatedAt = DateTime.UtcNow,
-                Status = Constants.RecordStatus.Active
+                Status = Constants.RecordStatus.Active,
+                PostTags = model.TagIds.Select(t=> new PostTag { TagId = t}).ToList()
             };
 
             await repository.AddAsync(post);
