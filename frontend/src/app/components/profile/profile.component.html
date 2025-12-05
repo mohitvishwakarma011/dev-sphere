@@ -1,0 +1,124 @@
+<div class="min-h-screen pt-24 pb-20">
+  <!-- Background Banner -->
+  <div class="relative h-64 mb-0 overflow-hidden">
+    <img
+      [src]="profile.backgroundImage"
+      alt="Background"
+      class="w-full h-full object-cover"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"
+    ></div>
+  </div>
+
+  <!-- Profile Content -->
+  <div class="max-w-6xl mx-auto px-4">
+    <!-- Profile Header -->
+    <div class="glass-card -mt-32 relative z-10 mb-8">
+      <div class="flex flex-col sm:flex-row gap-6">
+        <!-- Avatar -->
+        <div class="flex-shrink-0">
+          <img
+            [src]="profile.avatar"
+            [alt]="profile.name"
+            class="w-32 h-32 rounded-2xl object-cover border-4 border-background shadow-2xl"
+          />
+        </div>
+
+        <!-- Profile Info -->
+        <div class="flex-1 py-4">
+          <h1 class="text-3xl font-bold mb-1">{{ profile.name }}</h1>
+          <p class="text-primary font-medium mb-3">{{ profile.title }}</p>
+          <p class="text-muted-foreground mb-4 max-w-2xl">
+            {{ profile.bio }}
+          </p>
+          <div
+            class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground"
+          >
+            <div class="flex items-center gap-1">
+              <i class="ri-calendar-line"></i>
+              <span>Joined {{ profile.joinDate }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col gap-2">
+          <button class="glass-button px-6 py-2 rounded-xl font-semibold">
+            <i class="ri-edit-line mr-2"></i>
+            <span>Edit Profile</span>
+          </button>
+          <button
+            class="glass rounded-xl px-6 py-2 font-semibold hover:bg-secondary/50 transition-all"
+          >
+            <i class="ri-settings-3-line mr-2"></i>
+            <span class="hidden sm:inline">Settings</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+      <div *ngFor="let stat of stats" class="glass-card text-center">
+        <i [class]="'text-3xl text-primary ' + stat.icon"></i>
+        <p class="text-2xl font-bold mt-2">{{ stat.value }}</p>
+        <p class="text-sm text-muted-foreground">{{ stat.label }}</p>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="glass rounded-xl p-4 mb-8">
+      <div class="flex items-center gap-2 border-b border-border">
+        <button
+          (click)="setActiveTab('posts')"
+          [class.active]="activeTab === 'posts'"
+          class="profile-tab px-4 py-3 font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <i class="ri-file-list-line mr-2"></i>
+          <span>Posts</span>
+        </button>
+        <button
+          (click)="setActiveTab('saved')"
+          [class.active]="activeTab === 'saved'"
+          class="profile-tab px-4 py-3 font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <i class="ri-bookmark-line mr-2"></i>
+          <span>Saved</span>
+        </button>
+        <button
+          (click)="setActiveTab('liked')"
+          [class.active]="activeTab === 'liked'"
+          class="profile-tab px-4 py-3 font-medium text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <i class="ri-heart-line mr-2"></i>
+          <span>Liked</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Posts Grid -->
+    <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <ng-container *ngFor="let post of getActiveTabPosts()">
+        <app-post-card [post]="post"></app-post-card>
+      </ng-container>
+    </section>
+
+    <!-- Empty State -->
+    <div *ngIf="getActiveTabPosts().length === 0" class="text-center py-20">
+      <i
+        class="ri-file-search-line text-6xl text-muted-foreground/30 block mb-4"
+      ></i>
+      <h3 class="text-xl font-semibold mb-2">No {{ activeTab }} yet</h3>
+      <p class="text-muted-foreground">
+        <span *ngIf="activeTab === 'posts'"
+          >Start by writing your first post</span
+        >
+        <span *ngIf="activeTab === 'saved'">Save posts to read them later</span>
+        <span *ngIf="activeTab === 'liked'"
+          >Like posts from your favorite authors</span
+        >
+      </p>
+    </div>
+  </div>
+</div>

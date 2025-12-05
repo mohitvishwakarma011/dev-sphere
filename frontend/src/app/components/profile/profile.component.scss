@@ -1,0 +1,17 @@
+.profile-tab {
+  position: relative;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+
+  &.active {
+    color: hsl(var(--foreground));
+    border-bottom-color: hsl(var(--primary));
+  }
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
