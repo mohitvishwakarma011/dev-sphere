@@ -1,0 +1,107 @@
+<div class="min-h-screen flex items-center justify-center px-4 pt-20">
+  <div class="w-full max-w-md">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center gap-3 mb-6">
+        <div class="glass-button p-3 rounded-xl">
+          <i class="ri-pen-nib-fill text-primary-foreground text-2xl"></i>
+        </div>
+        <span class="font-display text-2xl font-semibold gradient-text">
+          MirrorBlog
+        </span>
+      </div>
+      <h1 class="text-3xl font-bold mb-2">Welcome Back</h1>
+      <p class="text-muted-foreground">Sign in to your account to continue</p>
+    </div>
+
+    <!-- Login Form -->
+    <form (ngSubmit)="onSubmit()" class="space-y-4">
+      <!-- Email Input -->
+      <div class="space-y-2">
+        <label class="block text-sm font-medium">Email Address</label>
+        <input
+          [(ngModel)]="email"
+          name="email"
+          type="email"
+          class="glass-input"
+          placeholder="your@email.com"
+          required
+        />
+      </div>
+
+      <!-- Password Input -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <label class="block text-sm font-medium">Password</label>
+          <a href="#" class="text-xs text-primary hover:underline">Forgot password?</a>
+        </div>
+        <div class="relative">
+          <input
+            [(ngModel)]="password"
+            name="password"
+            [type]="showPassword ? 'text' : 'password'"
+            class="glass-input pr-10"
+            placeholder="Enter your password"
+            required
+          />
+          <button
+            type="button"
+            (click)="togglePasswordVisibility()"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+          >
+            <i [class]="showPassword ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Remember Me -->
+      <label class="flex items-center gap-2 cursor-pointer">
+        <input
+          [(ngModel)]="rememberMe"
+          name="rememberMe"
+          type="checkbox"
+          class="w-4 h-4 rounded border border-border accent-primary"
+        />
+        <span class="text-sm text-muted-foreground">Remember me</span>
+      </label>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        [disabled]="isLoading || !email || !password"
+        class="login-button w-full glass-button py-3 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        <span *ngIf="!isLoading">Sign In</span>
+        <span *ngIf="isLoading" class="flex items-center gap-2">
+          <i class="ri-loader-4-line animate-spin"></i>
+          Signing in...
+        </span>
+      </button>
+
+      <!-- Sign Up Link -->
+      <p class="text-center text-sm text-muted-foreground">
+        Don't have an account?
+        <a href="#" class="text-primary hover:underline font-medium">Sign up here</a>
+      </p>
+    </form>
+
+    <!-- Divider -->
+    <div class="my-6 flex items-center gap-3">
+      <div class="flex-1 h-px bg-border"></div>
+      <span class="text-xs text-muted-foreground">OR CONTINUE WITH</span>
+      <div class="flex-1 h-px bg-border"></div>
+    </div>
+
+    <!-- Social Login -->
+    <div class="grid grid-cols-2 gap-3">
+      <button class="glass rounded-xl py-3 flex items-center justify-center gap-2 hover:bg-secondary/50 transition-all">
+        <i class="ri-google-fill text-lg"></i>
+        <span class="hidden sm:inline text-sm font-medium">Google</span>
+      </button>
+      <button class="glass rounded-xl py-3 flex items-center justify-center gap-2 hover:bg-secondary/50 transition-all">
+        <i class="ri-github-fill text-lg"></i>
+        <span class="hidden sm:inline text-sm font-medium">GitHub</span>
+      </button>
+    </div>
+  </div>
+</div>
