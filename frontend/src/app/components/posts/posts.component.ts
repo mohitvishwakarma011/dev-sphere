@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PostService } from 'src/app/services';
+import { FilterModel } from 'src/app/shared/models';
 
 interface Post {
   id: number;
@@ -25,7 +27,7 @@ export class PostsComponent implements OnInit {
 
   filters: string[] = ['All', 'Design', 'Web Development', 'UI/UX', 'React'];
 
-  posts: Post[] = [];
+  // posts: Post[] = [];
 
   allPosts: Post[] = [
     {
@@ -90,8 +92,37 @@ export class PostsComponent implements OnInit {
     }
   ];
 
+  filterModel: FilterModel = new FilterModel();
+  posts = Array<any>();
+  isModelLoaded = false;
+  totalCount = 0;
+
+  constructor(private readonly postService: PostService) { }
   ngOnInit() {
-    this.filterPosts();
+    this.getPosts();
+  }
+
+  updateFilterModel(): void {
+
+  }
+
+  resetFIlterModel(): void {
+
+  }
+
+  getPosts(): void {
+    this.filterModel.sort = 'title'
+    this.postService.getPosts(this.filterModel).subscribe({
+      next: (res) => {
+        this.isModelLoaded = true;
+        this.totalCount = res.totalCount;
+        this.posts = res.items;
+      },
+      error: (err) => {
+        this.isModelLoaded = true;
+        console.log(err);
+      }
+    })
   }
 
   filterPosts() {
@@ -107,19 +138,5 @@ export class PostsComponent implements OnInit {
         post.excerpt.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     }
-  }
-
-  onFilterChange(filter: string) {
-    this.selectedFilter = filter;
-    this.filterPosts();
-  }
-
-  onSearch() {
-    this.filterPosts();
-  }
-
-  clearSearch() {
-    this.searchQuery = '';
-    this.filterPosts();
   }
 }

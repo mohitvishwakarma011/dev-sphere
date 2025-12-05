@@ -5,6 +5,7 @@ interface ProfilePost {
   title: string;
   image: string;
   date: string;
+  
 }
 
 @Component({

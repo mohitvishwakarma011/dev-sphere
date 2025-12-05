@@ -6,7 +6,9 @@
       alt="Background"
       class="w-full h-full object-cover"
     />
-    <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"></div>
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"
+    ></div>
   </div>
 
   <!-- Profile Content -->
@@ -30,7 +32,9 @@
           <p class="text-muted-foreground mb-4 max-w-2xl">
             {{ profile.bio }}
           </p>
-          <div class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+          <div
+            class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground"
+          >
             <div class="flex items-center gap-1">
               <i class="ri-calendar-line"></i>
               <span>Joined {{ profile.joinDate }}</span>
@@ -44,7 +48,9 @@
             <i class="ri-edit-line mr-2"></i>
             <span>Edit Profile</span>
           </button>
-          <button class="glass rounded-xl px-6 py-2 font-semibold hover:bg-secondary/50 transition-all">
+          <button
+            class="glass rounded-xl px-6 py-2 font-semibold hover:bg-secondary/50 transition-all"
+          >
             <i class="ri-settings-3-line mr-2"></i>
             <span class="hidden sm:inline">Settings</span>
           </button>
@@ -93,44 +99,25 @@
 
     <!-- Posts Grid -->
     <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <article
-        *ngFor="let post of getActiveTabPosts()"
-        class="glass-card group cursor-pointer overflow-hidden"
-      >
-        <!-- Image -->
-        <div class="relative h-48 mb-4 rounded-lg overflow-hidden">
-          <img
-            [src]="post.image"
-            [alt]="post.title"
-            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-        </div>
-
-        <!-- Content -->
-        <div>
-          <!-- Title -->
-          <h3 class="text-lg font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-            {{ post.title }}
-          </h3>
-
-          <!-- Date -->
-          <div class="flex items-center gap-1 text-xs text-muted-foreground">
-            <i class="ri-calendar-line"></i>
-            <span>{{ post.date }}</span>
-          </div>
-        </div>
-      </article>
+      <ng-container *ngFor="let post of getActiveTabPosts()">
+        <app-post-card [post]="post"></app-post-card>
+      </ng-container>
     </section>
 
     <!-- Empty State -->
     <div *ngIf="getActiveTabPosts().length === 0" class="text-center py-20">
-      <i class="ri-file-search-line text-6xl text-muted-foreground/30 block mb-4"></i>
+      <i
+        class="ri-file-search-line text-6xl text-muted-foreground/30 block mb-4"
+      ></i>
       <h3 class="text-xl font-semibold mb-2">No {{ activeTab }} yet</h3>
       <p class="text-muted-foreground">
-        <span *ngIf="activeTab === 'posts'">Start by writing your first post</span>
+        <span *ngIf="activeTab === 'posts'"
+          >Start by writing your first post</span
+        >
         <span *ngIf="activeTab === 'saved'">Save posts to read them later</span>
-        <span *ngIf="activeTab === 'liked'">Like posts from your favorite authors</span>
+        <span *ngIf="activeTab === 'liked'"
+          >Like posts from your favorite authors</span
+        >
       </p>
     </div>
   </div>

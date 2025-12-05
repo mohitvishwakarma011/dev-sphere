@@ -1,3 +1,4 @@
+using DS.Core.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +39,9 @@ namespace DS.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            
+
+            app.UseCors(Constants.DefaultCorsPolicy);
+
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();

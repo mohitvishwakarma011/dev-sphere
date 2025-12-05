@@ -44,7 +44,7 @@ namespace DS.Api.Controllers
                     return BadRequest(validationResult.Errors.ToList());
                 }
 
-                await postManager.Update(postModel);
+                await postManager.Update(postModel,UserId);
                 return Ok();
             }
             catch (Exception ex)

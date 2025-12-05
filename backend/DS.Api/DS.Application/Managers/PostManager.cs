@@ -26,12 +26,12 @@ namespace DS.Application.Managers
             await unitOfWork.SaveChangesAsync();
         }
 
-        public async Task Update(PostModel postModel)
+        public async Task Update(PostModel postModel, int userId)
         {
             var post = new Post
             {
                 Id = postModel.Id,
-                AuthorId = postModel.AuthorId,
+                AuthorId = userId,
                 CategoryId = postModel.CategoryId,
                 Title = postModel.Title,
                 Content = postModel.Content,

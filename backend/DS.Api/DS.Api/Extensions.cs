@@ -67,7 +67,6 @@ namespace DS.Api
             services.AddScoped<ILikeManager, LikeManager>();
             services.AddScoped<ITagManager, TagManager>();
         }
-
         public static void ConfigureMiddlewares(this IApplicationBuilder builder)
         {
             builder.UseMiddleware<ExceptionHandling>();

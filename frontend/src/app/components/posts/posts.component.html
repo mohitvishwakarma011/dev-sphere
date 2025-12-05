@@ -14,14 +14,14 @@
           <i class="ri-search-line text-muted-foreground text-xl"></i>
           <input
             [(ngModel)]="searchQuery"
-            (keyup)="onSearch()"
+            (keyup)="true"
             type="text"
             placeholder="Search posts..."
             class="flex-1 bg-transparent outline-none text-foreground placeholder:text-muted-foreground"
           />
           <button
             *ngIf="searchQuery"
-            (click)="clearSearch()"
+            (click)="true"
             class="text-muted-foreground hover:text-foreground transition-colors"
           >
             <i class="ri-close-line text-lg"></i>
@@ -34,7 +34,7 @@
         <i class="ri-filter-line text-muted-foreground flex-shrink-0"></i>
         <button
           *ngFor="let filter of filters"
-          (click)="onFilterChange(filter)"
+          (click)="true"
           [class.active]="selectedFilter === filter"
           class="filter-button px-4 py-2 rounded-full font-medium whitespace-nowrap transition-all"
           [class.glass]="selectedFilter !== filter"
@@ -60,63 +60,18 @@
 
     <!-- Posts Grid -->
     <section>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <article
-          *ngFor="let post of posts"
-          class="glass-card group cursor-pointer overflow-hidden"
-        >
-          <!-- Image -->
-          <div class="relative h-48 mb-4 rounded-lg overflow-hidden">
-            <img
-              [src]="post.image"
-              [alt]="post.title"
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-          </div>
-
-          <!-- Content -->
-          <div>
-            <!-- Category Badge -->
-            <span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary mb-3">
-              {{ post.category }}
-            </span>
-
-            <!-- Title -->
-            <h3 class="text-lg font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
-              {{ post.title }}
-            </h3>
-
-            <!-- Excerpt -->
-            <p class="text-sm text-muted-foreground mb-4 line-clamp-2">
-              {{ post.excerpt }}
-            </p>
-
-            <!-- Meta -->
-            <div class="flex items-center justify-between text-xs text-muted-foreground border-t border-border pt-4">
-              <div class="flex items-center gap-2">
-                <div class="w-6 h-6 rounded-full bg-primary/20"></div>
-                <span>{{ post.author }}</span>
-              </div>
-              <span class="text-primary">{{ post.readTime }}</span>
-            </div>
-
-            <!-- Date -->
-            <div class="flex items-center gap-1 text-xs text-muted-foreground mt-3">
-              <i class="ri-calendar-line"></i>
-              <span>{{ post.date }}</span>
-            </div>
-          </div>
-        </article>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" *ngIf="isModelLoaded && totalCount > 0">
+        <app-post-card *ngFor="let post of posts" [post]="post"></app-post-card>
       </div>
 
       <!-- Empty State -->
-      <div *ngIf="posts.length === 0" class="text-center py-20">
+      <div *ngIf="isModelLoaded && totalCount === 0" class="text-center py-20">
         <i class="ri-file-search-line text-6xl text-muted-foreground/30 block mb-4"></i>
         <h3 class="text-xl font-semibold mb-2">No posts found</h3>
         <p class="text-muted-foreground mb-6">Try adjusting your search or filter criteria</p>
         <button
-          (click)="clearSearch(); onFilterChange('All')"
+          (click)="true"
+
           class="glass-button px-6 py-2 rounded-xl text-sm font-medium"
         >
           Clear Filters
